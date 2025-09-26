@@ -7,19 +7,20 @@ import jwt from "jsonwebtoken";
 export const registerUser = async (req, res) => {
   const data = req.body;
 
-  if (
-    !data.name ||
-    !data.email ||
-    !data.password ||
-    data.name === "" ||
-    data.email === "" ||
-    data.password === ""
-  ) {
-    return res
-      .status(400)
-      .json({ success: false, message: "All fields are required " });
-  }
   try {
+    if (
+      !data.name ||
+      !data.email ||
+      !data.password ||
+      data.name === "" ||
+      data.email === "" ||
+      data.password === ""
+    ) {
+      return res
+        .status(400)
+        .json({ success: false, message: "All fields are required " });
+    }
+
     const userExists = await User.findOne({ email: data.email });
     if (userExists) {
       return res
