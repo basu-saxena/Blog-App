@@ -1,0 +1,23 @@
+import dotenv from "dotenv";
+dotenv.config();
+
+import express from "express";
+import { connectDB } from "./configs/db.config.js";
+import mongoose from "mongoose";
+import authRoutes from "./routes/auth.route.js";
+import blogPostRoutes from "./routes/blogPost.route.js";
+
+const app = express();
+
+const PORT = process.env.PORT;
+connectDB();
+app.use(express.json());
+
+app.use("/api/auth", authRoutes);
+app.use("/api/posts", blogPostRoutes);
+
+mongoose.connection.once("open", () => {
+  app.listen(PORT || 5000, () => {
+    console.log(`Server is running on ${PORT || 5000}`);
+  });
+});
