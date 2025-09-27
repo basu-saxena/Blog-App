@@ -1,3 +1,4 @@
+import { Types } from "mongoose";
 import BlogPost from "../models/blogPost.model.js";
 
 export const createBlog = async (req, res) => {
@@ -37,7 +38,7 @@ export const createBlog = async (req, res) => {
 
 export const getAllBlogs = async (req, res) => {
   try {
-    const data = await BlogPost.find();
+    const data = await BlogPost.find().populate("userId", "-password");
 
     res
       .status(200)
@@ -53,7 +54,8 @@ export const getAllBlogs = async (req, res) => {
 export const getBlog = async (req, res) => {
   const Id = req.params.id;
   try {
-    const data = await BlogPost.findById(Id);
+    // console.log(typeof Id);
+    const data = await BlogPost.findById(Id).populate("userId", "-password");
 
     res
       .status(200)

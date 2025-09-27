@@ -4,6 +4,8 @@ import User from "../models/user.model.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 
+const secret = process.env.TOKEN_SECRET;
+
 export const registerUser = async (req, res) => {
   const data = req.body;
 
@@ -101,5 +103,25 @@ export const loginUser = async (req, res) => {
     res
       .status(500)
       .json({ success: false, message: "failed to reqister User" });
+  }
+};
+
+export const checkAuth = async (req, res) => {
+  try {
+    const token = req.headers.authorization;
+
+    if (!token) {
+      return res
+        .status(401)
+        .json({ success: false, auth: false, message: "Login required" });
+    }
+    const decoded = jwt.decode(token, secret);
+
+    res.status(200).json({ success: true, auth: true, message: "Logged in" });
+  } catch (error) {
+    console.log(error.message);
+    return res
+      .status(401)
+      .json({ success: false, auth: false, message: "Login required" });
   }
 };
