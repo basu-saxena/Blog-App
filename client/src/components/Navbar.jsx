@@ -30,7 +30,7 @@ const Navbar = () => {
         <div className="space-x-4 hidden md:block">
           {menu.map((item) => (
             <Link to={`/${item.toLowerCase()}`} key={item}>
-              {item}
+              <span className="hover:scale-110">{item}</span>
             </Link>
           ))}
           {auth.auth && (

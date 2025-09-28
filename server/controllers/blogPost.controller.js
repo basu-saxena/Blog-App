@@ -38,7 +38,16 @@ export const createBlog = async (req, res) => {
 
 export const getAllBlogs = async (req, res) => {
   try {
-    const data = await BlogPost.find().populate("userId", "-password");
+    const query = req.query.search;
+    let data;
+    if (!query || query === "") {
+      data = await BlogPost.find().populate("userId", "-password");
+    } else {
+      data = await BlogPost.find({ title: query }).populate(
+        "userId",
+        "-password"
+      );
+    }
 
     res
       .status(200)
@@ -175,5 +184,23 @@ export const getBlogsByUserId = async (req, res) => {
   } catch (error) {
     console.log(error.message);
     res.status(500).json({ success: false, message: "Failed to fetch" });
+  }
+};
+
+export const getRecentBlogs = async (req, res) => {
+  try {
+    const response = await BlogPost.find({ createdAt: "-1" }).limit(3);
+
+    res.status(200).json({
+      success: true,
+      message: "fetched successfully ",
+      data: response,
+    });
+  } catch (error) {
+    console.log(error.message);
+    res.status(500).json({
+      success: false,
+      message: "failed to fetch ",
+    });
   }
 };

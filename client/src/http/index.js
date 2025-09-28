@@ -53,3 +53,9 @@ export const fetchPostsByUserId = async () => {
 
   return response.data;
 };
+
+export const fetchRecentPosts = async () => {
+  const response = await api.get("/recent-posts");
+
+  return response.data;
+};

@@ -1,13 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import Navbar from "../components/Navbar";
 import BlogCard from "../components/BlogCard";
 import Search from "../components/Search";
 import { Link } from "react-router-dom";
 import useGetAllPosts from "../hooks/useGetAllPosts";
+import useGetRecentPosts from "../hooks/useGetRecentPosts";
 
 const Home = () => {
-  // const { loading, data } = useGetAllPosts();
-  const categories = ["general", "news", "blog", "tech", "study", "sports"];
+  // const { loading, data , setQuery} = useGetAllPosts();
+  const categories = ["general", "news", "tech", "sports"];
   const data = [
     {
       _id: 1,
@@ -32,6 +33,14 @@ const Home = () => {
     },
   ];
 
+  const { loadingPosts, recentPosts } = useGetRecentPosts();
+
+  // const [searchQuery , setSearchQuery] = useState("") ;
+
+  const handleOnChange = (e) => {
+    setQuery(e.target.value);
+  };
+
   // if (loading) {
   //   return <div>loading</div>;
   // }
@@ -52,8 +61,13 @@ const Home = () => {
           {/* recent posts */}
           <h1 className="text-2xl font-semibold my-4">Recent Posts</h1>
           <div className="space-y-2">
-            {data.length > 0 &&
-              data.map((item) => <h3 key={item._id}> {item.title}</h3>)}
+            {recentPosts.length > 0 &&
+              recentPosts.map((item) => (
+                <Link to={`/blog/${item._id}`} key={item._id}>
+                  {" "}
+                  {item.title}
+                </Link>
+              ))}
           </div>
           {/* categories */}
           <h1 className="text-2xl font-semibold my-4">Categories</h1>

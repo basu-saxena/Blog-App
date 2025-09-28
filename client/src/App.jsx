@@ -8,6 +8,8 @@ import Blog from "./pages/Blog";
 import CreateBlog from "./pages/CreateBlog";
 import UpdateBlog from "./pages/UpdateBlog";
 import Dashboard from "./pages/Dashboard";
+import AuthGuard from "./components/Guards/AuthGuard";
+import ProtectLogin from "./components/Guards/ProtectLogin";
 
 const App = () => {
   const { auth } = useCheckAuth();
@@ -15,12 +17,22 @@ const App = () => {
   return (
     <Routes>
       <Route path="/" element={<Home />} />
-      <Route path="/login" element={<Login />} />
-      <Route path="/register" element={<Register />} />
+      <Route path="/login" element={<ProtectLogin />}>
+        <Route path="" element={<Login />} />
+      </Route>
+      <Route path="/register" element={<ProtectLogin />}>
+        <Route path="" element={<Register />} />
+      </Route>
       <Route path="/blog/:id" element={<Blog />} />
-      <Route path="/create" element={<CreateBlog />} />
-      <Route path="/update/:id" element={<UpdateBlog />} />
-      <Route path="/dashboard" element={<Dashboard />} />
+      <Route path="/create" element={<AuthGuard />}>
+        <Route path="" element={<CreateBlog />} />
+      </Route>
+      <Route path="/update/:id" element={<AuthGuard />}>
+        <Route path="" element={<UpdateBlog />} />
+      </Route>
+      <Route path="/dashboard" element={<AuthGuard />}>
+        <Route path="" element={<Dashboard />} />
+      </Route>
     </Routes>
   );
 };

@@ -5,6 +5,7 @@ import {
   getAllBlogs,
   getBlog,
   getBlogsByUserId,
+  getRecentBlogs,
   updateBlog,
 } from "../controllers/blogPost.controller.js";
 import { authMiddleware } from "../middlewares/auth.middleware.js";
@@ -18,5 +19,6 @@ router
   .patch(authMiddleware, updateBlog)
   .delete(authMiddleware, deleteBlog);
 router.route("/my-posts").get(authMiddleware, getBlogsByUserId);
+router.route("/recent-posts").get(getRecentBlogs);
 
 export default router;

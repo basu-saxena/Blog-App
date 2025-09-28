@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { getAllPosts } from "../http";
-const useGetAllPosts = () => {
+const useGetAllPosts = ({ searchQuery }) => {
   const [loading, setLoading] = useState(true);
   const [data, setData] = useState([]);
+  const [query, setQuery] = useState(searchQuery);
 
   useEffect(() => {
     const fetchPosts = async () => {
       try {
         setLoading(true);
-        const response = await getAllPosts();
+        const response = await getAllPosts(query);
         if (response.success) {
           setData(response.data);
         }
@@ -20,8 +21,8 @@ const useGetAllPosts = () => {
     };
 
     fetchPosts();
-  }, []);
-  return { loading, data };
+  }, [query]);
+  return { loading, data, setQuery };
 };
 
 export default useGetAllPosts;
