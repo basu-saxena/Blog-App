@@ -5,9 +5,11 @@ import { formatDate } from "../utils/formatDate";
 import useAuthContext from "../hooks/useAuthContext";
 import { deletePost } from "../http";
 import { useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 const Blog = () => {
-  // const { loading, data } = useGetSinglePost();
+  const { id } = useParams();
+  // const { loading, data } = useGetSinglePost(id);
 
   const { auth } = useAuthContext();
   const navigate = useNavigate();
@@ -46,12 +48,15 @@ const Blog = () => {
             {auth.userId === data.userId._id && (
               <div className="space-x-5">
                 <button
-                  onClick={() => handleDelete(data._id)}
+                  onClick={() => navigate(`/update/${id}`)}
                   className="px-4 py-2 rounded-md bg-lime-500"
                 >
                   Edit
                 </button>
-                <button className="px-4 py-2 rounded-md bg-lime-500">
+                <button
+                  onClick={() => handleDelete(data._id)}
+                  className="px-4 py-2 rounded-md bg-lime-500"
+                >
                   Del
                 </button>
               </div>

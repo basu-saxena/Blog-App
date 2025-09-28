@@ -41,3 +41,9 @@ export const createPost = async (data) => {
 
   return response.data;
 };
+
+export const updatePost = async (data, id) => {
+  const response = await api.patch(`/posts/${id}`, data);
+
+  return response.data;
+};

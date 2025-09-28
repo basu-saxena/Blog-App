@@ -1,10 +1,7 @@
 import React, { useState } from "react";
-import { createPost } from "../http";
-import { useNavigate } from "react-router-dom";
 
-const Form = ({ data }) => {
+const Form = ({ data, handleOnSubmit, type }) => {
   const [values, setValues] = useState(data);
-  const navigate = useNavigate();
 
   const handleOnChange = (e) => {
     setValues((p) => {
@@ -12,22 +9,9 @@ const Form = ({ data }) => {
     });
   };
 
-  const handleOnSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      const response = await createPost(values);
-
-      if (response.success) {
-        navigate("/");
-      }
-    } catch (error) {
-      console.log(error.message);
-    }
-  };
-
   return (
     <div className="p-10 bg-[#EDF8F3] rounded w-full md:w-2/3 h-full shadow">
-      <form onSubmit={handleOnSubmit} className="space-y-5">
+      <form onSubmit={(e) => handleOnSubmit(e, values)} className="space-y-5">
         <div className="flex flex-col gap-1 ">
           <label htmlFor="title">Title</label>
           <input
@@ -68,7 +52,7 @@ const Form = ({ data }) => {
           className="px-4 py-2 rounded-md bg-white border border-gray-300 text-gray-500 font-semibold cursor-pointer"
           type="submit "
         >
-          Create Blog
+          {type}
         </button>
       </form>
     </div>
