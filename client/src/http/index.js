@@ -47,3 +47,9 @@ export const updatePost = async (data, id) => {
 
   return response.data;
 };
+
+export const fetchPostsByUserId = async () => {
+  const response = await api.get("/my-posts");
+
+  return response.data;
+};

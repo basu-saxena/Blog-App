@@ -153,3 +153,27 @@ export const deleteBlog = async (req, res) => {
     res.status(500).json({ success: false, message: "Failed to delete post" });
   }
 };
+
+export const getBlogsByUserId = async (req, res) => {
+  const userId = req.userId;
+
+  try {
+    if (!userId) {
+      return res
+        .status(400)
+        .json({ success: false, message: "User ID is missing" });
+    }
+
+    const response = await BlogPost.find({ userId: userId }).populate(
+      "userId",
+      "-password"
+    );
+
+    res
+      .status(200)
+      .json({ success: true, message: "Successfully fetched", data: response });
+  } catch (error) {
+    console.log(error.message);
+    res.status(500).json({ success: false, message: "Failed to fetch" });
+  }
+};
