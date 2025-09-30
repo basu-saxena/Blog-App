@@ -6,6 +6,7 @@ import Form from "../components/Form";
 import useGetSinglePost from "../hooks/useGetSinglePost";
 import { toast } from "react-hot-toast";
 import Loading from "../components/Loading";
+import Footer from "../components/Footer";
 
 const UpdateBlog = () => {
   const { id } = useParams();
@@ -48,6 +49,7 @@ const UpdateBlog = () => {
           type={"Update Blog"}
         />
       </section>
+      <Footer />
     </>
   );
 };

@@ -4,6 +4,7 @@ import Form from "../components/Form";
 import { createPost } from "../http";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-hot-toast";
+import Footer from "../components/Footer";
 
 const CreateBlog = () => {
   const navigate = useNavigate();
@@ -34,6 +35,7 @@ const CreateBlog = () => {
           type={"Create Blog"}
         />
       </section>
+      <Footer />
     </>
   );
 };

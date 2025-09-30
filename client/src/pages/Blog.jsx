@@ -7,6 +7,7 @@ import { deletePost } from "../http";
 import { useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import Loading from "../components/Loading";
+import Footer from "../components/Footer";
 
 const Blog = () => {
   const { id } = useParams();
@@ -64,6 +65,7 @@ const Blog = () => {
           </div>
         </div>
       </section>
+      <Footer />
     </>
   );
 };

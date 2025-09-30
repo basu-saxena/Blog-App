@@ -5,6 +5,7 @@ import Search from "../components/Search";
 import { Link } from "react-router-dom";
 import useGetAllPosts from "../hooks/useGetAllPosts";
 import useGetRecentPosts from "../hooks/useGetRecentPosts";
+import Footer from "../components/Footer";
 
 const Home = () => {
   const { data, setQuery, category, setCategory } = useGetAllPosts();
@@ -64,6 +65,7 @@ const Home = () => {
           </ul>
         </div>
       </section>
+      <Footer />
     </div>
   );
 };

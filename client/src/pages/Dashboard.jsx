@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { deletePost } from "../http";
 import useGetPostByUserId from "../hooks/useGetPostByUserId";
 import Loading from "../components/Loading";
+import Footer from "../components/Footer";
 
 const Dashboard = () => {
   const navigate = useNavigate();
@@ -69,6 +70,7 @@ const Dashboard = () => {
           <div>No posts to show!</div>
         )}
       </section>
+      <Footer />
     </>
   );
 };
