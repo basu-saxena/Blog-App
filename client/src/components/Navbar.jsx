@@ -25,9 +25,9 @@ const Navbar = () => {
   return (
     <header>
       <nav className="px-10 py-5 bg-[#EDF8F3] flex justify-between items-center shadow">
-        <div>
+        <Link to={"/"}>
           <img className="h-8 md:h-12" src="/images/Logo.png" alt="myBlog" />
-        </div>
+        </Link>
         <ul className="hidden md:flex gap-4">
           {menu.map((item) => (
             <li
