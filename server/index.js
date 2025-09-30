@@ -11,7 +11,10 @@ import cors from "cors";
 const app = express();
 
 const PORT = process.env.PORT;
-const whiteLists = ["http://localhost:5173"];
+const whiteLists = [
+  "http://localhost:5173",
+  "https://blog-app-woad-eight.vercel.app",
+];
 connectDB();
 app.use(express.json());
 
