@@ -40,9 +40,9 @@ const Blog = () => {
       <section className="p-5 md:p-10 ">
         <div className=" bg-[#EDF8F3] p-5 space-y-5 ">
           <div className="flex justify-between items-center ">
-            <h1 className="text-3xl font-semibold">{data.title}</h1>
+            <h1 className="text-xl md:text-3xl font-semibold">{data.title}</h1>
             {auth.userId === data.userId._id && (
-              <div className="space-x-5">
+              <div className="flex gap-2 flex-nowrap">
                 <button
                   onClick={() => navigate(`/update/${id}`)}
                   className="px-4 py-2 rounded-md bg-lime-500"
@@ -58,8 +58,8 @@ const Blog = () => {
               </div>
             )}
           </div>
-          <p className="text-xl text-gray-600">{data.content}</p>
-          <div>
+          <p className="text-base md:text-xl text-gray-600">{data.content}</p>
+          <div className="capitalize">
             {" "}
             {data.userId.name} <span>{formatDate(data.createdAt)} </span>
           </div>

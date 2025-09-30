@@ -60,7 +60,7 @@ const Dashboard = () => {
               <p className="text-base md:text-xl text-gray-600">
                 {item.content}
               </p>
-              <div>
+              <div className="capitalize">
                 {" "}
                 {item.userId.name} <span>{formatDate(item.createdAt)} </span>
               </div>

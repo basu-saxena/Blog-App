@@ -5,7 +5,7 @@ const Footer = () => {
   return (
     <>
       <footer className="flex flex-col bg-[#EDF8F3] shadow items-center justify-around w-full py-16 text-sm text-gray-800/70">
-        <div className="flex items-center gap-8">
+        <div className="flex items-center gap-4 md:gap-8">
           <a
             href="#"
             className="font-medium text-gray-500 hover:text-black transition-all"
@@ -133,7 +133,7 @@ const Footer = () => {
             </svg>
           </Link>
         </div>
-        <p className="mt-8 text-center">
+        <p className="mt-8 text-center px-3">
           Copyright © 2025 MyBlog. All rights reservered.
         </p>
       </footer>
