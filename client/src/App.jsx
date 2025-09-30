@@ -10,28 +10,32 @@ import UpdateBlog from "./pages/UpdateBlog";
 import Dashboard from "./pages/Dashboard";
 import AuthGuard from "./components/Guards/AuthGuard";
 import ProtectLogin from "./components/Guards/ProtectLogin";
+import Loading from "./components/Loading";
 
 const App = () => {
-  const { auth } = useCheckAuth();
-  // console.log(auth);
+  const { loading } = useCheckAuth();
+  if (loading) {
+    return <Loading />;
+  }
+
   return (
     <Routes>
       <Route path="/" element={<Home />} />
-      <Route path="/login" element={<ProtectLogin />}>
-        <Route path="" element={<Login />} />
+      <Route element={<ProtectLogin />}>
+        <Route path="/login" element={<Login />} />
       </Route>
-      <Route path="/register" element={<ProtectLogin />}>
-        <Route path="" element={<Register />} />
+      <Route element={<ProtectLogin />}>
+        <Route path="/register" element={<Register />} />
       </Route>
       <Route path="/blog/:id" element={<Blog />} />
-      <Route path="/create" element={<AuthGuard />}>
-        <Route path="" element={<CreateBlog />} />
+      <Route element={<AuthGuard />}>
+        <Route path="/create" element={<CreateBlog />} />
       </Route>
-      <Route path="/update/:id" element={<AuthGuard />}>
-        <Route path="" element={<UpdateBlog />} />
+      <Route element={<AuthGuard />}>
+        <Route path="/update/:id" element={<UpdateBlog />} />
       </Route>
-      <Route path="/dashboard" element={<AuthGuard />}>
-        <Route path="" element={<Dashboard />} />
+      <Route element={<AuthGuard />}>
+        <Route path="/dashboard" element={<Dashboard />} />
       </Route>
     </Routes>
   );

@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { registerUser } from "../http";
 import { AuthContext } from "../contexts/auth";
 import { CgProfile } from "react-icons/cg";
+import { toast } from "react-hot-toast";
 
 const Register = () => {
   const { setAuth } = useContext(AuthContext);
@@ -27,7 +28,7 @@ const Register = () => {
     const { password, confirmPass } = values;
 
     if (password !== confirmPass) {
-      alert("Password does not match !");
+      toast.error("Password does not match !");
       return;
     }
 
@@ -37,17 +38,21 @@ const Register = () => {
       if (response.success) {
         localStorage.setItem("token", response.token);
 
-        // setAuth({ auth: true });
-        navigate("/");
-        window.location.reload();
+        toast.success("Signed Up!!");
+
+        setTimeout(() => {
+          navigate("/");
+          window.location.reload();
+        }, 1000);
       }
     } catch (error) {
       console.log(error.message);
+      toast.error(error.response.data.message);
     }
   };
 
   return (
-    <div className="h-screen flex justify-center , items-center px-3">
+    <section className="h-screen flex justify-center , items-center px-3">
       <form
         onSubmit={handleSubmit}
         className="max-w-96 w-full text-center border border-gray-300/60 rounded-2xl px-8 bg-white"
@@ -152,7 +157,7 @@ const Register = () => {
           </Link>
         </p>
       </form>
-    </div>
+    </section>
   );
 };
 

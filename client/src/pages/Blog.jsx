@@ -6,21 +6,16 @@ import useAuthContext from "../hooks/useAuthContext";
 import { deletePost } from "../http";
 import { useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
+import Loading from "../components/Loading";
 
 const Blog = () => {
   const { id } = useParams();
-  // const { loading, data } = useGetSinglePost(id);
+  const { loading, data } = useGetSinglePost(id);
 
   const { auth } = useAuthContext();
-  const navigate = useNavigate();
+  // console.log(auth);
 
-  const data = {
-    _id: 3,
-    title: "Blog Post",
-    content: "This is a BLog post",
-    userId: { _id: 20, name: "Basu" },
-    createdAt: "10/10/10",
-  };
+  const navigate = useNavigate();
 
   const handleDelete = async (id) => {
     try {
@@ -34,14 +29,14 @@ const Blog = () => {
     }
   };
 
-  // if (loading) {
-  //   return <div>Loading</div>;
-  // }
+  if (loading) {
+    return <Loading />;
+  }
 
   return (
     <>
       <Navbar />
-      <div className="p-5 md:p-10 ">
+      <section className="p-5 md:p-10 ">
         <div className=" bg-[#EDF8F3] p-5 space-y-5 ">
           <div className="flex justify-between items-center ">
             <h1 className="text-3xl font-semibold">{data.title}</h1>
@@ -68,7 +63,7 @@ const Blog = () => {
             {data.userId.name} <span>{formatDate(data.createdAt)} </span>
           </div>
         </div>
-      </div>
+      </section>
     </>
   );
 };

@@ -6,6 +6,7 @@ import useAuthContext from "../hooks/useAuthContext";
 
 const Navbar = () => {
   const { auth } = useAuthContext();
+  // const auth = { auth: true };
 
   const menu = auth.auth
     ? ["CREATE", "DASHBOARD"]
@@ -27,18 +28,23 @@ const Navbar = () => {
         <div>
           <img className="h-8 md:h-12" src="/images/Logo.png" alt="myBlog" />
         </div>
-        <div className="space-x-4 hidden md:block">
+        <ul className="hidden md:flex gap-4">
           {menu.map((item) => (
-            <Link to={`/${item.toLowerCase()}`} key={item}>
-              <span className="hover:scale-110">{item}</span>
-            </Link>
+            <li
+              className="hover:scale-110 transition-all duration-100 ease-in"
+              key={item}
+            >
+              <Link to={`/${item.toLowerCase()}`}>{item}</Link>
+            </li>
           ))}
           {auth.auth && (
-            <button onClick={handleClick} className="cursor-pointer">
-              LOGOUT
-            </button>
+            <li className="hover:scale-110 transition-all duration-100 ease-in">
+              <button onClick={handleClick} className="cursor-pointer">
+                LOGOUT
+              </button>
+            </li>
           )}
-        </div>
+        </ul>
         <div
           className="md:hidden "
           onClick={() => {

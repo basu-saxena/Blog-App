@@ -3,10 +3,13 @@ import { useNavigate, useParams } from "react-router-dom";
 import { updatePost } from "../http";
 import Navbar from "../components/Navbar";
 import Form from "../components/Form";
+import useGetSinglePost from "../hooks/useGetSinglePost";
+import { toast } from "react-hot-toast";
+import Loading from "../components/Loading";
 
 const UpdateBlog = () => {
   const { id } = useParams();
-  // const { loading, data } = useGetSinglePost(id);
+  const { loading, data } = useGetSinglePost(id);
   const navigate = useNavigate();
 
   const handleOnSubmit = async (e, values) => {
@@ -16,28 +19,25 @@ const UpdateBlog = () => {
       const response = await updatePost(values, id);
 
       if (response.success) {
-        navigate(`/blog/${id}`);
+        toast.success("Blog updated successfully!!");
+        setTimeout(() => {
+          navigate(`/blog/${id}`);
+        }, 1000);
       }
     } catch (error) {
       console.log(error.message);
+      toast.error(error.response.data.message);
     }
   };
 
-  const data = {
-    _id: 3,
-    title: "Blog Post",
-    content: "This is a BLog post",
-    category: "tech",
-    userId: { _id: 20, name: "Basu" },
-    createdAt: "10/10/10",
-  };
-  //  if (loading) {
-  //   return <div>Loading</div>;
-  // }
+  if (loading) {
+    return <Loading />;
+  }
+
   return (
     <>
       <Navbar />
-      <div className="p-5 md:p-10 h-full">
+      <section className="p-5 md:p-10 h-full">
         <Form
           data={{
             title: data.title,
@@ -47,7 +47,7 @@ const UpdateBlog = () => {
           handleOnSubmit={handleOnSubmit}
           type={"Update Blog"}
         />
-      </div>
+      </section>
     </>
   );
 };

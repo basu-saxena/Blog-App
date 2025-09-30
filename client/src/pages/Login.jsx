@@ -2,6 +2,8 @@ import React, { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { loginUser } from "../http";
 import { AuthContext } from "../contexts/auth";
+import { toast } from "react-hot-toast";
+import { AxiosError } from "axios";
 
 const Login = () => {
   const [values, setValues] = useState({ email: "", password: "" });
@@ -23,16 +25,26 @@ const Login = () => {
       if (response.success) {
         localStorage.setItem("token", response.token);
         // setAuth({ auth: true });
-        navigate("/");
-        window.location.reload();
+        toast.success("Logged In!!");
+
+        setTimeout(() => {
+          navigate("/");
+          window.location.reload();
+        }, 1000);
       }
     } catch (error) {
       console.log(error.message);
+      if (error instanceof AxiosError) {
+        toast.error(error.response.data.message);
+        return;
+      }
+
+      toast.error(error.message);
     }
   };
 
   return (
-    <div className="h-screen flex justify-center , items-center px-3">
+    <section className="h-screen flex justify-center , items-center px-3">
       <form
         onSubmit={handleSubmit}
         className="max-w-96 w-full text-center border border-gray-300/60 rounded-2xl px-8 bg-white"
@@ -107,7 +119,7 @@ const Login = () => {
           </Link>
         </p>
       </form>
-    </div>
+    </section>
   );
 };
 

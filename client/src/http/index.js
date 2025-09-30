@@ -1,7 +1,7 @@
 import { api } from "./client";
 
-export const getAllPosts = async () => {
-  const posts = await api.get("/posts");
+export const getAllPosts = async (query = "", category = "") => {
+  const posts = await api.get(`/posts?search=${query}&category=${category}`);
 
   return posts.data;
 };
@@ -49,13 +49,13 @@ export const updatePost = async (data, id) => {
 };
 
 export const fetchPostsByUserId = async () => {
-  const response = await api.get("/my-posts");
+  const response = await api.get("/posts/my-posts");
 
   return response.data;
 };
 
 export const fetchRecentPosts = async () => {
-  const response = await api.get("/recent-posts");
+  const response = await api.get("/posts/recent-posts");
 
   return response.data;
 };

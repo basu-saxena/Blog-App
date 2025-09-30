@@ -117,7 +117,14 @@ export const checkAuth = async (req, res) => {
     }
     const decoded = jwt.decode(token, secret);
 
-    res.status(200).json({ success: true, auth: true, message: "Logged in" });
+    res
+      .status(200)
+      .json({
+        success: true,
+        auth: true,
+        userId: decoded.id,
+        message: "Logged in",
+      });
   } catch (error) {
     console.log(error.message);
     return res

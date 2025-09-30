@@ -4,11 +4,11 @@ import { Navigate, Outlet } from "react-router-dom";
 
 const ProtectLogin = () => {
   const { auth } = useAuthContext();
-
+  // const auth = { auth: true };
   if (!auth.auth) {
-    <Outlet />;
+    return <Outlet />;
   } else {
-    <Navigate to={"/"} />;
+    return <Navigate to={"/"} />;
   }
 };
 

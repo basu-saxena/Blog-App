@@ -39,15 +39,22 @@ export const createBlog = async (req, res) => {
 export const getAllBlogs = async (req, res) => {
   try {
     const query = req.query.search;
-    let data;
-    if (!query || query === "") {
-      data = await BlogPost.find().populate("userId", "-password");
-    } else {
-      data = await BlogPost.find({ title: query }).populate(
-        "userId",
-        "-password"
-      );
+    const category = req.query.category;
+
+    let filters = {};
+    if (query && query.trim() !== "") {
+      filters = {
+        title: { $regex: query, $options: "i" },
+      };
     }
+
+    if (category && category.trim !== "") {
+      filters = {
+        category,
+      };
+    }
+
+    const data = await BlogPost.find(filters).populate("userId", "-password");
 
     res
       .status(200)
@@ -113,7 +120,7 @@ export const updateBlog = async (req, res) => {
         .json({ success: false, message: "Blog not found" });
     }
 
-    if (blog.userId !== userId) {
+    if (!blog.userId.equals(userId)) {
       return res.status(400).json({ success: false, message: "Unauthorized" });
     }
 
@@ -150,7 +157,7 @@ export const deleteBlog = async (req, res) => {
         .json({ success: false, message: "Blog not found" });
     }
 
-    if (blog.userId !== userId) {
+    if (!blog.userId.equals(userId)) {
       return res.status(400).json({ success: false, message: "Unauthorized" });
     }
 
@@ -189,7 +196,7 @@ export const getBlogsByUserId = async (req, res) => {
 
 export const getRecentBlogs = async (req, res) => {
   try {
-    const response = await BlogPost.find({ createdAt: "-1" }).limit(3);
+    const response = await BlogPost.find().sort({ createdAt: -1 }).limit(3);
 
     res.status(200).json({
       success: true,

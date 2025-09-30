@@ -20,10 +20,8 @@ app.use(cors({ origin: whiteLists }));
 app.use("/api/auth", authRoutes);
 app.use("/api/posts", blogPostRoutes);
 
-app.listen(PORT || 5000, () => {
-  console.log(`Server is running on ${PORT || 5000}`);
+mongoose.connection.once("open", () => {
+  app.listen(PORT || 5000, () => {
+    console.log(`Server is running on ${PORT || 5000}`);
+  });
 });
-
-// mongoose.connection.once("open", () => {
-
-// });

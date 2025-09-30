@@ -1,10 +1,11 @@
 import React from "react";
 import { IoCloseOutline } from "react-icons/io5";
 import { Link } from "react-router-dom";
-import useAuth from "../hooks/useCheckAuth";
+
+import useAuthContext from "../hooks/useAuthContext";
 
 const Sidebar = ({ open, onClose, menu, handleClick }) => {
-  const { auth } = useAuth();
+  const { auth } = useAuthContext();
 
   return (
     <>
@@ -24,21 +25,23 @@ const Sidebar = ({ open, onClose, menu, handleClick }) => {
           <div className=" flex justify-end mb-5">
             <IoCloseOutline size={25} onClick={onClose} />
           </div>
-          <div className="h-full flex flex-col gap-7 ">
+          <ul className="h-full flex flex-col gap-7 ">
             {menu.map((item) => (
-              <Link to={`/${item.toLowerCase()}`} key={item}>
-                {item}
-              </Link>
+              <li key={item}>
+                <Link to={`/${item.toLowerCase()}`}>{item}</Link>
+              </li>
             ))}
             {auth.auth && (
-              <button
-                onClick={handleClick}
-                className="cursor-pointer inline-flex"
-              >
-                LOGOUT
-              </button>
+              <li>
+                <button
+                  onClick={handleClick}
+                  className="cursor-pointer inline-flex"
+                >
+                  LOGOUT
+                </button>
+              </li>
             )}
-          </div>
+          </ul>
         </div>
       </div>
     </>

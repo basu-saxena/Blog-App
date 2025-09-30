@@ -49,7 +49,7 @@ const Form = ({ data, handleOnSubmit, type }) => {
           />
         </div>
         <button
-          className="px-4 py-2 rounded-md bg-white border border-gray-300 text-gray-500 font-semibold cursor-pointer"
+          className="px-4 py-2 rounded-md bg-white border border-gray-300 text-gray-500 font-semibold cursor-pointer hover:text-black hover:border-black"
           type="submit "
         >
           {type}
